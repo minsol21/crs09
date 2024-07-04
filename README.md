@@ -4,8 +4,8 @@
 - **Minsol Kim**
 - **Bhargav Solanki**
 
-# Foraging Robot Simulation
 
+# Foraging Robot Simulation
 This Python simulation involves a swarm of robots navigating an arena to collect objects and transport them to a designated home zone. As it was simulation to test robot collectivity, we thought implementing a home zone and a whole new sensors and logic to swarmy simulator will not be efficient. A
 So we embodied at least but effective simulation for estimating swarm efficiency, including sensors and logic in assignment guide. 
 
@@ -13,7 +13,7 @@ So we embodied at least but effective simulation for estimating swarm efficiency
 
 1. **Robot Initialization:**
    - Each robot starts at a random position within the arena and with a random orientation.
-   - The home zone is located at the center of the arena, as a quarter size of arena.
+   - The home zone is located at the center of the arena and is sized as 25% of arena.
 
 2. **Sensors:**
    - **Light Sensor:** Calculates the distance to the home zone and provides a value inversely proportional to the distance.
