@@ -9,6 +9,7 @@ class Robot:
         self.orientation = random.uniform(0, 2 * np.pi)  # in radians
         self.home_zone_center = np.array([arena_size / 2, arena_size / 2])
         self.is_transporting_object = False
+        self.objects_held = 0  # Number of objects currently held
 
     def read_sensors(self):
         # Calculate distance to home zone light (simplified)
@@ -65,10 +66,13 @@ class Robot:
 
         if home_zone and self.is_transporting_object:
             self.is_transporting_object = False
+            self.objects_held = 0
         elif self.is_transporting_object:
             self.move_to_light(light_sensor_value)
         elif bumper_sensor_value > 0.5:
             self.is_transporting_object = True
+            self.objects_held = 1  # Assume picking up one object
+
         elif arena_boundary:
             self.avoid_boundary(proximity_sensor_value)
         else:
@@ -92,8 +96,9 @@ def simulate_swarm(swarm_size, simulation_time, arena_size):
     for t in range(simulation_time):
         for robot in swarm:
             status = robot.forage()
-            if status['home_zone'] and not status['transporting_object']:
-                collected_objects += 1
+            if status['home_zone'] and not status['transporting_object'] and robot.objects_held > 0:
+                collected_objects += robot.objects_held
+                robot.objects_held = 0  # Reset objects held by the robot
 
     return collected_objects
 
